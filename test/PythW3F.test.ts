@@ -19,7 +19,7 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 const { ethers, deployments, w3f } = hre;
 
-describe("SmartOracle contract tests", function () {
+describe.only("SmartOracle contract tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let owner: SignerWithAddress;
@@ -63,7 +63,7 @@ describe("SmartOracle contract tests", function () {
     };
     pyth = new Contract(pythAddress, pyth_hub_abi, admin) as IPyth;
   });
-  it.only("Update oracle price on first execution", async () => {
+  it("Update oracle price on first execution", async () => {
     const connection = new EvmPriceServiceConnection(
       "https://xc-testnet.pyth.network"
     );
@@ -73,8 +73,8 @@ describe("SmartOracle contract tests", function () {
     ];
 
     const priceUpdateData = await connection.getPriceFeedsUpdateData(priceIds);
-    console.log(priceUpdateData);
-    console.log("pyth", pyth);
+    // console.log(priceUpdateData);
+    // console.log("pyth", pyth);
     await smartOracle
       .connect(gelatoMsgSenderSigner)
       .updatePrice(priceUpdateData);
