@@ -19,7 +19,7 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 const { ethers, deployments, w3f } = hre;
 
-describe.only("SmartOracle contract tests", function () {
+describe("SmartOracle contract tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let owner: SignerWithAddress;

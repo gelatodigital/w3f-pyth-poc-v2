@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/javiermac/Documents/BLOCKCHAIN/PoCs/pyth-poc-v2/contracts/SmartOracle.sol": {
-      "lastModificationDate": 1685474150027,
-      "contentHash": "7bdb16e4a7c4713e16ee74907ae6ade5",
+      "lastModificationDate": 1685524724106,
+      "contentHash": "572bc2f5f5aa2edc7b1aac7012a83c81",
       "sourceName": "contracts/SmartOracle.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -39,8 +39,9 @@
         "@openzeppelin/contracts/utils/Counters.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/security/Pausable.sol",
-        "./lens/IPyth.sol",
-        "./lens/PythStructs.sol"
+        "hardhat/console.sol",
+        "@pythnetwork/pyth-sdk-solidity/IPyth.sol",
+        "@pythnetwork/pyth-sdk-solidity/PythStructs.sol"
       ],
       "versionPragmas": [
         "^0.8.17"
@@ -348,6 +349,177 @@
       ],
       "artifacts": [
         "Context"
+      ]
+    },
+    "/Users/javiermac/Documents/BLOCKCHAIN/PoCs/pyth-poc-v2/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1685474171945,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/javiermac/Documents/BLOCKCHAIN/PoCs/pyth-poc-v2/node_modules/@pythnetwork/pyth-sdk-solidity/PythStructs.sol": {
+      "lastModificationDate": 1685523283942,
+      "contentHash": "4535ed622babdd43dbdc4702d2aa8b65",
+      "sourceName": "@pythnetwork/pyth-sdk-solidity/PythStructs.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PythStructs"
+      ]
+    },
+    "/Users/javiermac/Documents/BLOCKCHAIN/PoCs/pyth-poc-v2/node_modules/@pythnetwork/pyth-sdk-solidity/IPyth.sol": {
+      "lastModificationDate": 1685523283942,
+      "contentHash": "740b3334c23197a93ec8c633db642bc0",
+      "sourceName": "@pythnetwork/pyth-sdk-solidity/IPyth.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./PythStructs.sol",
+        "./IPythEvents.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IPyth"
+      ]
+    },
+    "/Users/javiermac/Documents/BLOCKCHAIN/PoCs/pyth-poc-v2/node_modules/@pythnetwork/pyth-sdk-solidity/IPythEvents.sol": {
+      "lastModificationDate": 1685523283942,
+      "contentHash": "79b2a432c97c8d4a61ecc474b58ca0a1",
+      "sourceName": "@pythnetwork/pyth-sdk-solidity/IPythEvents.sol",
+      "solcConfig": {
+        "version": "0.8.17",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IPythEvents"
       ]
     }
   }

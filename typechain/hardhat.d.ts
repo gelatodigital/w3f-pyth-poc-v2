@@ -29,6 +29,14 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IPythEvents__factory>;
     getContractFactory(
+      name: "IPyth",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IPyth__factory>;
+    getContractFactory(
+      name: "IPythEvents",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IPythEvents__factory>;
+    getContractFactory(
       name: "SmartOracle",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.SmartOracle__factory>;
@@ -43,6 +51,16 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Pausable>;
+    getContractAt(
+      name: "IPyth",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IPyth>;
+    getContractAt(
+      name: "IPythEvents",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IPythEvents>;
     getContractAt(
       name: "IPyth",
       address: string,

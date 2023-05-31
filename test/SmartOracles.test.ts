@@ -19,7 +19,7 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 const { ethers, deployments, w3f } = hre;
 
-describe("SmartOracle contract tests", function () {
+describe.only("SmartOracle contract tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let owner: SignerWithAddress;
@@ -51,6 +51,8 @@ describe("SmartOracle contract tests", function () {
         await deployments.get("SmartOracle")
       ).address
     )) as SmartOracle;
+
+    await admin.sendTransaction({ to: smartOracle.address, value: 5000, gasLimit: 10000000 });
 
     userArgs = {
       SmartOracle: pythAddress, // set your oracle address
@@ -103,18 +105,15 @@ describe("SmartOracle contract tests", function () {
     ];
 
     const priceUpdateData = await connection.getPriceFeedsUpdateData([
-      "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6",
+      "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6"
     ]);
-    // console.log("updatePriceData length: ", priceUpdateData.length);
-    // console.log("updatePriceData[0]: ", priceUpdateData[0]);
-    // const priceBefore = await smartOracle.currentPrice();
-    // console.log("priceUpdateData", priceUpdateData);
-    // console.log("gelatoMsgSenderSigner", gelatoMsgSenderSigner);
+
+    const priceBefore = await smartOracle.currentPrice();
     let fee = await pyth.getUpdateFee(priceUpdateData);
     console.log(fee);
-    // await smartOracle
-    //   .connect(gelatoMsgSenderSigner)
-    //   .updatePrice(priceUpdateData);
-    // expect(await smartOracle.currentPrice()).to.not.eq(priceBefore);
+    await smartOracle
+      .connect(gelatoMsgSenderSigner)
+      .updatePrice(priceUpdateData);
+    expect(await smartOracle.currentPrice()).to.not.eq(priceBefore);
   });
 });

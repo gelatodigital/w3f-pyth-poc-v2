@@ -5,10 +5,9 @@ import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
-
-import {IPyth} from "./lens/IPyth.sol";
-
-import {PythStructs} from "./lens/PythStructs.sol";
+import "hardhat/console.sol";
+import {IPyth} from "@pythnetwork/pyth-sdk-solidity/IPyth.sol";
+import {PythStructs} from "@pythnetwork/pyth-sdk-solidity/PythStructs.sol";
 
 contract SmartOracle is Ownable, Pausable {
     IPyth pyth;
@@ -35,13 +34,13 @@ contract SmartOracle is Ownable, Pausable {
 
         pyth.updatePriceFeeds{value: fee}(updatePriceData);
 
-        bytes32 priceID = bytes32(
-            0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6
-        );
+        bytes32 priceID = bytes32(0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6);
+
 
         PythStructs.Price memory check_price = pyth.getPrice(priceID);
 
         currentPrice = Price(check_price.price, check_price.publishTime);
+        
     }
 
     function getPrice() public view returns (Price memory) {

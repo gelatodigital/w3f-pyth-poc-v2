@@ -3,6 +3,8 @@
 /* eslint-disable */
 import type * as openzeppelin from "./@openzeppelin";
 export type { openzeppelin };
+import type * as pythnetwork from "./@pythnetwork";
+export type { pythnetwork };
 import type * as contracts from "./contracts";
 export type { contracts };
 export * as factories from "./factories";
@@ -10,9 +12,9 @@ export type { Ownable } from "./@openzeppelin/contracts/access/Ownable";
 export { Ownable__factory } from "./factories/@openzeppelin/contracts/access/Ownable__factory";
 export type { Pausable } from "./@openzeppelin/contracts/security/Pausable";
 export { Pausable__factory } from "./factories/@openzeppelin/contracts/security/Pausable__factory";
-export type { IPyth } from "./contracts/lens/IPyth";
-export { IPyth__factory } from "./factories/contracts/lens/IPyth__factory";
-export type { IPythEvents } from "./contracts/lens/IPythEvents";
-export { IPythEvents__factory } from "./factories/contracts/lens/IPythEvents__factory";
+export type { IPyth } from "./@pythnetwork/pyth-sdk-solidity/IPyth";
+export { IPyth__factory } from "./factories/@pythnetwork/pyth-sdk-solidity/IPyth__factory";
+export type { IPythEvents } from "./@pythnetwork/pyth-sdk-solidity/IPythEvents";
+export { IPythEvents__factory } from "./factories/@pythnetwork/pyth-sdk-solidity/IPythEvents__factory";
 export type { SmartOracle } from "./contracts/SmartOracle";
 export { SmartOracle__factory } from "./factories/contracts/SmartOracle__factory";
