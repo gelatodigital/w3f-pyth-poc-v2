@@ -2,31 +2,16 @@ import hre from "hardhat";
 import { Signer } from "@ethersproject/abstract-signer";
 import { EvmPriceServiceConnection } from "@pythnetwork/pyth-evm-js";
 
-import {
-  time as blockTime,
-  impersonateAccount,
-  setBalance,
-} from "@nomicfoundation/hardhat-network-helpers";
+import { setBalance } from "@nomicfoundation/hardhat-network-helpers";
 import { expect } from "chai";
-import { pyth_hub_abi } from "../helpers/pyth_hub_abi";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { SmartOracle, IPyth } from "../typechain";
-import { BigNumber, Contract, utils } from "ethers";
-import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
-import {
-  Web3FunctionUserArgs,
-  Web3FunctionResultV2,
-} from "@gelatonetwork/web3-functions-sdk";
-const { ethers, deployments, w3f } = hre;
+import { SmartOracle } from "../typechain";
+import { utils } from "ethers";
+const { ethers, deployments } = hre;
 
-describe.only("SmartOracle contract tests", function () {
+describe("SmartOracle contract tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
-  let owner: SignerWithAddress;
   let smartOracle: SmartOracle;
-  let oracleW3f: Web3FunctionHardhat;
-  let userArgs: Web3FunctionUserArgs;
-  let pyth: IPyth;
   let gelatoMsgSenderSigner: Signer;
 
   beforeEach(async function () {
@@ -41,8 +26,7 @@ describe.only("SmartOracle contract tests", function () {
 
     adminAddress = await admin.getAddress();
     await setBalance(adminAddress, ethers.utils.parseEther("1000"));
-    const { pyth: pythAddress, gelatoMsgSender: gelatoMsgSender } =
-      await hre.getNamedAccounts();
+    const { gelatoMsgSender: gelatoMsgSender } = await hre.getNamedAccounts();
     gelatoMsgSenderSigner = await ethers.getSigner(gelatoMsgSender);
     await setBalance(gelatoMsgSender, utils.parseEther("10000000000000"));
     smartOracle = (await ethers.getContractAt(
@@ -52,15 +36,11 @@ describe.only("SmartOracle contract tests", function () {
       ).address
     )) as SmartOracle;
 
-    await admin.sendTransaction({ to: smartOracle.address, value: 5000, gasLimit: 10000000 });
-
-    userArgs = {
-      SmartOracle: pythAddress, // set your oracle address
-      priceIds: [
-        "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6",
-      ], // set your price ids
-    };
-    pyth = new Contract(pythAddress, pyth_hub_abi, admin) as IPyth;
+    await admin.sendTransaction({
+      to: smartOracle.address,
+      value: 5000,
+      gasLimit: 10000000,
+    });
   });
   it("SmartOracle.updatePrice: onlyGelatoMsgSender", async () => {
     // Arbitrary bytes array
@@ -104,13 +84,10 @@ describe.only("SmartOracle contract tests", function () {
       "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6", // ETH/USD price id in testnet
     ];
 
-    const priceUpdateData = await connection.getPriceFeedsUpdateData([
-      "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6"
-    ]);
+    const priceUpdateData = await connection.getPriceFeedsUpdateData(priceIds);
 
     const priceBefore = await smartOracle.currentPrice();
-    let fee = await pyth.getUpdateFee(priceUpdateData);
-    console.log(fee);
+
     await smartOracle
       .connect(gelatoMsgSenderSigner)
       .updatePrice(priceUpdateData);

@@ -5,6 +5,8 @@ node_modules
 # local env variables
 .env
 
+dist
+
 # coverage
 coverage
 .nyc_output

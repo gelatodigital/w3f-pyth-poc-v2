@@ -32,10 +32,12 @@ const config: HardhatUserConfig = {
     gelatoMsgSender: {
       hardhat: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
       mumbai: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
+      polygon: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
     },
     pyth: {
       hardhat: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
       mumbai: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
+      polygon: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
     },
   },
   defaultNetwork: "hardhat",
@@ -44,7 +46,7 @@ const config: HardhatUserConfig = {
     hardhat: {
       forking: {
         url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_ID}`,
-       // blockNumber: 35241432,
+        blockNumber: 35241432,
       },
     },
 
@@ -68,7 +70,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.17",
+        version: "0.8.18",
         settings: {
           optimizer: { enabled: true, runs: 200 },
         },

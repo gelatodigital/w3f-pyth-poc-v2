@@ -13,22 +13,19 @@ interface IPRICE {
 }
 
 Web3Function.onRun(async (context: Web3FunctionContext) => {
-  const { userArgs, multiChainProvider, secrets, storage } = context;
+  const { userArgs, storage } = context;
 
   // User Storage
   const lastPrice = JSON.parse(
     (await storage.get("lastPrice")) ?? "{}"
   ) as IPRICE;
+
   const smartOracle = (userArgs.SmartOracle as string) ?? "";
-  const priceIds = (userArgs.priceIds as string[]) ?? "";
+  const priceIds = (userArgs.priceIds ?? "") as string[];
   // Get Pyth price data
   const connection = new EvmPriceServiceConnection(
     "https://xc-testnet.pyth.network"
   ); // See Price Service endpoints section below for other endpoints
-  // const priceIds = [
-  //   "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6", // ETH/USD price id in testnet
-  // ];
-  // const priceIds = (userArgs.priceIds as string[]) ?? "";
 
   const check = (await connection.getLatestPriceFeeds(priceIds)) as any[];
   if (
@@ -51,11 +48,11 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
       "function updatePrice(bytes[] memory updatePriceData) external",
     ]);
 
-    let updatePriceData = await connection.getPriceFeedsUpdateData(priceIds);
-    console.log(updatePriceData);
+    const updatePriceData = await connection.getPriceFeedsUpdateData(priceIds);
+
     console.log("Web3 Function price initialization");
 
-    let callData = iface.encodeFunctionData("updatePrice", [updatePriceData]);
+    const callData = iface.encodeFunctionData("updatePrice", [updatePriceData]);
     return {
       canExec: true,
       callData: [
@@ -76,9 +73,9 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
       "function updatePrice(bytes[] memory updatePriceData) external",
     ]);
 
-    let updatePriceData = await connection.getPriceFeedsUpdateData(priceIds);
-    console.log("hillooooo", updatePriceData);
-    let callData = iface.encodeFunctionData("updatePrice", [updatePriceData]);
+    const updatePriceData = await connection.getPriceFeedsUpdateData(priceIds);
+
+    const callData = iface.encodeFunctionData("updatePrice", [updatePriceData]);
     console.log(
       `Updating Price:${currentPrice.price}, timestamp: ${currentPrice.timestamp} `
     );
