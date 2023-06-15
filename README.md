@@ -33,12 +33,12 @@ You will need to input your `PROVIDER_URL`, your RPC.
 
 3. Test the  web3 function
 ```
-npx w3f test src/web3-functions/pyth-price-change/index.ts --logs
+npx w3f test web3-functions/pyth-price-change/index.ts --logs
 ```
 
 4. Deploy the web3 function on IPFS
 ```
-npx w3f deploy src/web3-functions/pyth-price-change/index.ts
+npx w3f deploy web3-functions/pyth-price-change/index.ts
 ```
 
 5. Create the task following the link provided when deploying the web3 to IPFS in our case:
