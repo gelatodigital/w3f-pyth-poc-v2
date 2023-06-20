@@ -13,7 +13,7 @@ interface IPRICE {
 }
 
 Web3Function.onRun(async (context: Web3FunctionContext) => {
-  const { userArgs, storage } = context;
+  const { userArgs, storage, secrets, multiChainProvider } = context;
 
   // User Storage
   const lastPrice = JSON.parse(
