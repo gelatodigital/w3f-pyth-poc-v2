@@ -131,8 +131,8 @@
       ]
     },
     "/Users/javiermac/Documents/BLOCKCHAIN/PoCs/pyth-poc-v2/contracts/SmartOracle.sol": {
-      "lastModificationDate": 1686744246889,
-      "contentHash": "a056c4db390b18973cd5b07d22172feb",
+      "lastModificationDate": 1687326209236,
+      "contentHash": "54d48af01246a4b471084efde880cced",
       "sourceName": "contracts/SmartOracle.sol",
       "solcConfig": {
         "version": "0.8.18",

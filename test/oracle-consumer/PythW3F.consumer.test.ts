@@ -3,7 +3,7 @@ import { Signer } from "@ethersproject/abstract-signer";
 
 import { setBalance } from "@nomicfoundation/hardhat-network-helpers";
 import { expect } from "chai";
-import { SmartOracle } from "../typechain";
+import { SmartOracle } from "../../typechain";
 import { utils } from "ethers";
 import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 const { ethers, deployments, w3f } = hre;
 
-describe("W3F tests", function () {
+describe("W3F-Consumer tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let smartOracle: SmartOracle;
@@ -44,6 +44,12 @@ describe("W3F tests", function () {
       smartOracleAddress
     )) as SmartOracle;
 
+    const p = await  admin.populateTransaction({
+      to: smartOracle.address,
+      value: 5000,
+      gasLimit: 10000000,
+    }) 
+
     await admin.sendTransaction({
       to: smartOracle.address,
       value: 5000,
@@ -57,7 +63,7 @@ describe("W3F tests", function () {
       ], // set your price ids
     };
 
-    oracleW3f = w3f.get("pyth-price-change");
+    oracleW3f = w3f.get("pyth-oracle-consumer-contract");
   });
 
   it("W3F returns canExec:true in first Execution", async () => {

@@ -39,7 +39,6 @@ contract SmartOracle is Ownable, Pausable {
         bytes[] memory updatePriceData
     ) external onlyGelatoMsgSender {
         uint256 fee = _pyth.getUpdateFee(updatePriceData);
-
         _pyth.updatePriceFeeds{value: fee}(updatePriceData);
         /* solhint-disable-next-line */
         bytes32 priceID = bytes32(

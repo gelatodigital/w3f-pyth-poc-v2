@@ -15,8 +15,8 @@
     "lint:ts": "eslint -c .eslintrc.json --ext \"**/*.ts\" \"**/*.test.ts\"",
     "lint:sol": "solhint 'contracts/**/*.sol'",
     "postinstall": "yarn husky install",
-    "w3f:deploy": "npx w3f deploy web3-functions/pyth-price-change/index.ts",
-    "w3f:test": "npx w3f test web3-functions/pyth-price-change/index.ts --logs"
+    "w3f:deploy": "npx w3f deploy web3-functions/pyth-oracle-w3f/index.ts",
+    "w3f:test": "npx w3f test web3-functions/pyth-oracle-w3f/index.ts --logs"
   },
   "license": "ISC",
   "devDependencies": {

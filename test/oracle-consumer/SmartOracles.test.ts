@@ -4,7 +4,7 @@ import { EvmPriceServiceConnection } from "@pythnetwork/pyth-evm-js";
 
 import { setBalance } from "@nomicfoundation/hardhat-network-helpers";
 import { expect } from "chai";
-import { SmartOracle } from "../typechain";
+import { SmartOracle } from "../../typechain";
 import { utils } from "ethers";
 const { ethers, deployments } = hre;
 
@@ -84,7 +84,13 @@ describe("SmartOracle contract tests", function () {
       "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6", // ETH/USD price id in testnet
     ];
 
+    
     const priceUpdateData = await connection.getPriceFeedsUpdateData(priceIds);
+
+ 
+
+    
+
 
     const priceBefore = await smartOracle.currentPrice();
 
