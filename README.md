@@ -1,11 +1,11 @@
 
 # Gelato Web3 functions <<-->> Pyth PoC
-Gelato Web3 Functions together with Pyth offer the ability to create fine-tuned custmized oracles pushing prices on-chain following a predefined logic within the Web3 Function and verifying prices on-chain through the Pyth network.
+Gelato Web3 Functions together with Pyth offer the ability to create fine-tuned customized oracles pushing prices on-chain following predefined logic within the Web3 Function and verifying prices on-chain through the Pyth network.
 
-In this repo we have created two demos, one that directly interact with the Pyth network and a second one that uses a consumer contract. In both cases the logic is the same, the prices are going to be updted following:
+In this repo we have two demos, one that directly interact with the Pyth network and a second one using a consumer contract. In both cases the logic is the same, the prices are going to be updated following:
 
-- Push on-chain a price every hour
-- If since the last push, the price change is greater or equal to 2% in both directions, a new price will be pushed
+- Push a price on-chain every hour
+- If since the last push, the price change is greater or equal to 2% in either direction, a new price will be pushed
 
 ## Funding
 We will fund Gelato and Pyth following this process:
@@ -14,7 +14,7 @@ We will fund Gelato and Pyth following this process:
   1Balance allows to deposit USDC on polygon and run the transactions on every network.
 
    To fund 1Balance please visit the [1balance app](https://beta.app.gelato.network/balance) and deposit USDC.
-   (The 1Balance account has to be created wit the same address as the Web3 Function task)
+   (The 1Balance account has to be created with the same address as the Web3 Function task)
   
   - Switch network to Polygon
 
@@ -39,16 +39,16 @@ The method that updates the price is payable, the update transaction has to incl
 ```
 In our two demos we will transfer the fee differently:
   - W3F update pyth network  
-    The on-chain transaction executed via a web3 function gets routed through a proxy smart contract which is solely owned by the web3 function task creator. This [dedicatedMsgSender](https://mumbai.polygonscan.com/address/0xbb97656cd5fece3a643335d03c8919d5e7dcd225) proxy contract will be deployed with the first task created and will be responsible ultimately to transfer the fee to the Pyth contract.
+    The on-chain transaction executed via a web3 function gets routed through a proxy smart contract which is solely owned by the web3 function task creator. This [dedicatedMsgSender](https://mumbai.polygonscan.com/address/0xbb97656cd5fece3a643335d03c8919d5e7dcd225) proxy contract will be deployed with the first task created and will ultimately be responsible for transferring the fee to the Pyth contract.
 
     The address can be seen in your task dashboard (i.e [example task dashboard](https://beta.app.gelato.network/task/0xfea44d03033ff491fd0d5b0278968daf7efd73d3b452c256af68b601d4c7db65?chainId=80001)) 
 
      <img src="docs/dedicatedMsgSender.png" width="320"/>
     
     Once we have the [dedicatedMsgSender](https://mumbai.polygonscan.com/address/0xbb97656cd5fece3a643335d03c8919d5e7dcd225) address we will have to fund it for paying the fees. 
-    In our example we have send funds to the dedicated MsgSender with this [transaction](https://mumbai.polygonscan.com/tx/0x76820435112844d166f684bc46d0861cca22840e8ae1370d90e9d4984a13c037)
+    In our example we have sent funds to the dedicated MsgSender with this [transaction](https://mumbai.polygonscan.com/tx/0x76820435112844d166f684bc46d0861cca22840e8ae1370d90e9d4984a13c037)
 
-    Once the dedicatedMasgSender is funded, the Web3 Function will execute passin the fee as value in the callData:
+    Once the dedicatedMsgSender is funded, the Web3 Function will execute passing the fee as value in the callData:
 
     ```ts
     return {
@@ -64,7 +64,7 @@ In our two demos we will transfer the fee differently:
     ```
 
   - W3F Consumer Contract:
-    The contract has to be funded with native token and then simply query the fee and it to the transaction value.
+    The contract has to be funded with native tokens and then simply query the fee and include it in the transaction value.
 
     ```sol  
         uint256 fee = _pyth.getUpdateFee(updatePriceData);
