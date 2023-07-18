@@ -126,6 +126,7 @@ W3F Pyth
 npx w3f deploy web3-functions/pyth-oracle-w3f/index.ts
 ```
 W3F Consumer Contract
+```
 npx w3f deploy web3-functions/pyth-oracle-consumer-contract/index.ts
 ```
 
@@ -142,6 +143,7 @@ To create a task that runs your Web3 Function every minute, visit:
 ```
 
 W3F Consumer Contract
+
 ```
  ✓ Web3Function deployed to ipfs.
  ✓ CID: QmdrJyVznzHBrzb3zjwxPWU35rCRQmiPTk1LFejeqHHeMt
@@ -149,3 +151,6 @@ W3F Consumer Contract
 To create a task that runs your Web3 Function every minute, visit:
 > https://beta.app.gelato.network/new-task?cid=QmdrJyVznzHBrzb3zjwxPWU35rCRQmiPTk1LFejeqHHeMt
 ```
+
+
+You can find a template/instructions for W3F Pyth with dynamic configuration values loaded from a Github gist that allows you to update priceIds and various parameters without having to re-deploy the task in `web3-functions/pyth-oracle-w3f-priceIds`.
