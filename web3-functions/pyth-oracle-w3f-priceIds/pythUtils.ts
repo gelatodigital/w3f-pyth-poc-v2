@@ -16,12 +16,12 @@ export interface PythConfig {
   priceIds: string[];
 }
 
-export const addLeading0x = (id: string): string => {
+export function addLeading0x(id: string): string {
   if (id.startsWith("0x")) {
     return id;
   }
   return "0x" + id;
-};
+}
 
 export interface Web3Storage {
   get(key: string): Promise<string | undefined>;
