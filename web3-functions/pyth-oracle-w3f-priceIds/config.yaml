@@ -6,8 +6,9 @@ priceServiceEndpoint: "https://xc-testnet.pyth.network"
 # maximum number of seconds between updates
 validTimePeriodSeconds: 86400
 # update price if diff between previous price and current exceeds threshold 
-# ex: 0.02 = 2%
-deviationThreshold: 0.02
+# units is in basis points
+# ex: 2 = .02%, 15 = .15%, 200 = 2%
+deviationThresholdBps: 200
 # priceIds to check/update
 priceIds: 
   - "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6"
