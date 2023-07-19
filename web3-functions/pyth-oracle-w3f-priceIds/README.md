@@ -66,15 +66,19 @@ cp .env.example .env
 
 You will need to input your `PROVIDER_URL`, your RPC.
 
-3. For testing/setting up W3F Pyth Dynamic PriceIds you will also need to do the following:
+1. For testing up W3F Pyth Dynamic PriceIds you will also need to do the following:
 
-   1. create a github gist and create a file named `config.yaml`. You can use the `config.yaml` in `pyth-oracle-w3f-priceIds` as an example.
+   1. create a github gist and create a file named `config.yaml`. You can use either the `config-mumbai.yaml` or `config-polygon.yaml` in `pyth-oracle-w3f-priceIds` as an example.
 
    <img src="../../docs/configYamlGist.png"/>
+   2. create a `.env` in the local w3f directory
+   
+   ```
+   cp web3-functions/pyth-oracle-w3f-priceIds/.env.example web3-functions/pyth-oracle-w3f-priceIds/.env
+   ```
+   3. set the `GIST_ID` in `web3-functions/pyth-oracle-w3f-priceIds/.env` in the `pyth-oracle-w3f-priceIds` directory
 
-   2. set the `GIST_ID` in `.env` in the `pyth-oracle-w3f-priceIds` directory
-
-4. Test the web3 function
+2. Test the web3 function
 
 W3F Pyth Dynamic PriceIds
 
@@ -93,16 +97,16 @@ W3F Pyth PriceIds
 npx hardhat w3f-deploy pyth-oracle-w3f-priceIds
 ```
 
-2. Create the task following the link provided when deploying the web3 to IPFS in our case: (if you make any changes to the web3function you will have to re-upload it and create a new task since the CID will change)
+2. Create the task following the link provided when deploying the web3 to IPFS in our case: (if you make any changes to the web3function you will have to re-upload it and create a new task using the newly generated link since the CID will change)
 
 W3F Pyth PriceIds
 
 ```
  ✓ Web3Function deployed to ipfs.
- ✓ CID: QmaKt4nxPr2eNWvzkCgAL3RTpsbsGiU14tXKFmzzzyXuh3
+ ✓ CID: QmWUvLsbk84tGsg6tpqaF5nwkmbn5gAMcVxukQEgT646eZ
 
 To create a task that runs your Web3 Function every minute, visit:
-> https://beta.app.gelato.network/new-task?cid=QmaKt4nxPr2eNWvzkCgAL3RTpsbsGiU14tXKFmzzzyXuh3
+> https://beta.app.gelato.network/new-task?cid=QmWUvLsbk84tGsg6tpqaF5nwkmbn5gAMcVxukQEgT646eZ
 ```
 
 3. When creating the task using the link, you will need to set `GIST_ID` in secrets with the gistId that will be used for reading

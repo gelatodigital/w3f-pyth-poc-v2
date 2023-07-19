@@ -16,7 +16,6 @@ import {
 } from "./pythUtils";
 
 Web3Function.onRun(async (context: Web3FunctionContext) => {
-  console.log("starting web3 function");
   const { storage, secrets, multiChainProvider } = context;
 
   const provider = multiChainProvider.default();
@@ -24,19 +23,22 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
   // Refresh/retrieve config from storage
 
   const gistId = (await secrets.get("GIST_ID")) as string;
-  console.log(`fetching gistId: ${gistId}`);
 
   let pythConfig: PythConfig | undefined;
-
   try {
     pythConfig = await fetchPythConfigIfNecessary(storage, gistId);
-    console.log(`pythConfig: ${JSON.stringify(pythConfig)}`);
   } catch (err) {
     const error = err as Error;
     return {
       canExec: false,
       message: `Error fetching gist: ${error.message}`,
     };
+  }
+
+  const debug = pythConfig.debug;
+
+  if (debug) {
+    console.debug(`pythConfig: ${JSON.stringify(pythConfig)}`);
   }
 
   const {
@@ -55,9 +57,10 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
 
   // Get Pyth price data
   const connection = new EvmPriceServiceConnection(priceServiceEndpoint);
-
-  console.log(`fetching current prices for priceIds: ${priceIds}`);
-  const currentPrices = await getCurrentPrices(priceIds, connection);
+  if (debug) {
+    console.debug(`fetching current prices for priceIds: ${priceIds}`);
+  }
+  const currentPrices = await getCurrentPrices(priceIds, connection, debug);
   if (currentPrices === undefined) {
     return {
       canExec: false,
@@ -66,21 +69,22 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
   }
 
   if (currentPrices.size != priceIds.length) {
-    console.log(
-      `currentPrices.priceIds: ${JSON.stringify(currentPrices.keys())}`
+    const missingPriceIds = priceIds.filter((p) => !currentPrices.has(p));
+    console.error(
+      `Missing latest price feed info for ${JSON.stringify(missingPriceIds)}`
     );
     return { canExec: false, message: "Not all prices available" };
   }
 
-  console.log(
-    `currentPrices: ${JSON.stringify([...currentPrices.entries()], null, 2)}`
-  );
-
   const lastPrices = await getLastPrices(priceIds, storage);
-
-  console.log(
-    `lastPrices: ${JSON.stringify([...lastPrices.entries()], null, 2)}`
-  );
+  if (debug) {
+    console.debug(
+      `
+        currentPrices: ${JSON.stringify([...currentPrices.entries()])}
+        lastPrices: ${JSON.stringify([...lastPrices.entries()])}
+      `
+    );
+  }
 
   const priceFeedNeedsUpdate = (priceId: string): boolean => {
     const lastPrice = lastPrices.get(priceId)!;
@@ -92,6 +96,14 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
     const priceExceedsDiff = priceDiff >= deviationThresholdBps;
     const priceIsStale =
       currentPrice.publishTime - lastPrice.publishTime > validTimePeriodSeconds;
+    if (debug) {
+      console.debug(`
+        priceId: ${priceId}
+        priceDiff: ${priceDiff}
+        priceExceedsDiff: ${priceExceedsDiff}
+        priceIsStale: ${priceIsStale}
+      `);
+    }
     return priceExceedsDiff || priceIsStale;
   };
 

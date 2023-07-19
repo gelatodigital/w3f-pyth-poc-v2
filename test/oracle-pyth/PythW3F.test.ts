@@ -16,7 +16,7 @@ const { ethers, deployments, w3f } = hre;
 describe.only("W3F-Pyth tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
-  let  pythNetwork: IPyth;
+  let pythNetwork: IPyth;
   let oracleW3f: Web3FunctionHardhat;
   let userArgs: Web3FunctionUserArgs;
   let gelatoMsgSenderSigner: Signer;
@@ -33,12 +33,13 @@ describe.only("W3F-Pyth tests", function () {
 
     adminAddress = await admin.getAddress();
     await setBalance(adminAddress, ethers.utils.parseEther("1000"));
-    const { gelatoMsgSender: gelatoMsgSender, pyth:pythNetworkAddress } = await hre.getNamedAccounts();
+    const { gelatoMsgSender: gelatoMsgSender, pyth: pythNetworkAddress } =
+      await hre.getNamedAccounts();
 
     gelatoMsgSenderSigner = await ethers.getSigner(gelatoMsgSender);
     await setBalance(gelatoMsgSender, utils.parseEther("10000000000000"));
 
-    pythNetwork =  new Contract(pythNetworkAddress,pythAbi, admin) as IPyth;
+    pythNetwork = new Contract(pythNetworkAddress, pythAbi, admin) as IPyth;
 
     userArgs = {
       pythNetworkAddress: pythNetworkAddress, // set your oracle address
@@ -63,7 +64,6 @@ describe.only("W3F-Pyth tests", function () {
     }
   });
   it("W3F executes successfully on Pyth contract", async () => {
-
     const storage = {};
     const w3fResultCall1 = await oracleW3f.run({ userArgs, storage });
     const result1 = w3fResultCall1.result as Web3FunctionResultV2;
@@ -73,12 +73,13 @@ describe.only("W3F-Pyth tests", function () {
     if (result1.canExec == true) {
       expect(result1.callData.length).to.be.eq(1);
 
-      await expect(gelatoMsgSenderSigner.sendTransaction({
-        to: result1.callData[0].to,
-        data: result1.callData[0].data,
-        value:result1.callData[0].value
-      })).to.be.not.reverted;
-
+      await expect(
+        gelatoMsgSenderSigner.sendTransaction({
+          to: result1.callData[0].to,
+          data: result1.callData[0].data,
+          value: result1.callData[0].value,
+        })
+      ).to.be.not.reverted;
     }
   });
 });

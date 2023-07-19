@@ -1,0 +1,20 @@
+# Address of Pyth contract
+# See [https://docs.pyth.network/documentation/pythnet-price-feeds/evm#mainnet]
+pythNetworkAddress: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C" # Polygon Mainnet address
+# debug mode
+debug: false
+# Refresh rate of config in seconds to prevent rate limiting from github
+configRefreshRateInSeconds: 3600
+# See [https://docs.pyth.network/documentation/pythnet-price-feeds/price-service#public-endpoints]
+priceServiceEndpoint: "https://xc-mainnet.pyth.network"
+# maximum number of seconds between updates
+validTimePeriodSeconds: 86400
+# update price if diff between previous price and current exceeds threshold 
+# units is in basis points
+# ex: 2 = .02%, 15 = .15%, 200 = 2%
+deviationThresholdBps: 200
+# priceIds to check/update. See [https://pyth.network/developers/price-feed-ids#pyth-evm-mainnet] for more
+priceIds: 
+  - "0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace" # ETH/USD
+  - "0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43" # BTC/USD
+  - "0xef0d8b6fda2ceba41da15d4095d1da392a0d2f8ed0c6c7bc0f4cfac8c280b56d" # SOL/USD

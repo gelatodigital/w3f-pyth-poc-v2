@@ -8,6 +8,7 @@ export interface PythConfigStorage {
 }
 export interface PythConfig {
   pythNetworkAddress: string;
+  debug: boolean;
   priceServiceEndpoint: string;
   configRefreshRateInSeconds: number;
   validTimePeriodSeconds: number;
@@ -28,21 +29,21 @@ export interface Web3Storage {
   delete(key: string): Promise<void>;
 }
 
-export const shouldFetchPythConfig = (
+export function shouldFetchPythConfig(
   pythConfigStorage: PythConfigStorage
-): boolean => {
+): boolean {
   const isNotFoundInStorage = pythConfigStorage.pythConfig === undefined;
   return (
     isNotFoundInStorage ||
     Date.now() / 1000 - pythConfigStorage.timestamp >
       pythConfigStorage.pythConfig.configRefreshRateInSeconds
   );
-};
+}
 
-export const fetchPythConfigIfNecessary = async (
+export async function fetchPythConfigIfNecessary(
   storage: Web3Storage,
   gistId: string
-): Promise<PythConfig> => {
+): Promise<PythConfig> {
   const octokit = new Octokit();
   let pythConfig: PythConfig | undefined;
   let pythConfigStorage = JSON.parse(
@@ -66,26 +67,35 @@ export const fetchPythConfigIfNecessary = async (
       pythConfig: pythConfig,
     };
     const pythConfigStorageValue = JSON.stringify(pythConfigStorage);
-    console.log(`storing pythConfigStorageValue: ${pythConfigStorageValue}`);
+    if (pythConfig.debug) {
+      console.debug(
+        `storing fetched pythConfigStorageValue: ${pythConfigStorageValue}`
+      );
+    }
     await storage.set("pythConfig", pythConfigStorageValue);
   } else {
     pythConfig = pythConfigStorage.pythConfig;
+    if (pythConfig.debug) {
+      console.debug("using pythConfig from storage");
+    }
   }
   return pythConfig;
-};
+}
 
-export const getCurrentPrices = async (
+export async function getCurrentPrices(
   priceIds: string[],
-  connection: EvmPriceServiceConnection
-): Promise<Map<string, Price> | undefined> => {
-  const check = await connection.getLatestPriceFeeds(priceIds);
-  if (check === undefined) {
+  connection: EvmPriceServiceConnection,
+  debug: boolean
+): Promise<Map<string, Price> | undefined> {
+  const latestPriceFeeds = await connection.getLatestPriceFeeds(priceIds);
+  if (latestPriceFeeds === undefined) {
     return undefined;
   }
+  if (debug) {
+    console.debug(`latestPriceFeeds: ${JSON.stringify(latestPriceFeeds)}`);
+  }
 
-  console.log(`check: ${JSON.stringify(check)}`);
-
-  return check
+  return latestPriceFeeds
     .map((pf) => {
       return {
         id: pf.id,
@@ -99,12 +109,12 @@ export const getCurrentPrices = async (
       acc.set(addLeading0x(pf.id), pf.price);
       return acc;
     }, new Map<string, Price>());
-};
+}
 
-export const getLastPrices = async (
+export async function getLastPrices(
   priceIds: string[],
   storage: Web3Storage
-): Promise<Map<string, Price>> => {
+): Promise<Map<string, Price>> {
   return (
     await Promise.all(
       priceIds.map(async (priceId) => {
@@ -119,4 +129,4 @@ export const getLastPrices = async (
       acc.set(priceInfo.priceId, price);
       return acc;
     }, new Map<string, Price>());
-};
+}
