@@ -63,6 +63,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.0",
     "@pythnetwork/pyth-evm-js": "^1.16.1",
-    "@pythnetwork/pyth-sdk-solidity": "^2.2.1"
+    "@pythnetwork/pyth-sdk-solidity": "^2.2.1",
+    "octokit": "^3.0.0",
+    "yaml": "^2.3.1"
   }
 }

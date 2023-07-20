@@ -1,0 +1,20 @@
+# Address of Pyth contract
+# See [https://docs.pyth.network/documentation/pythnet-price-feeds/evm#testnet]
+pythNetworkAddress: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C" # Mumbai Testnet address
+# debug mode
+debug: true
+# Refresh rate of config in seconds to prevent rate limiting from github
+configRefreshRateInSeconds: 3600
+# See [https://docs.pyth.network/documentation/pythnet-price-feeds/price-service#public-endpoints]
+priceServiceEndpoint: "https://xc-testnet.pyth.network"
+# maximum number of seconds between updates
+validTimePeriodSeconds: 86400
+# update price if diff between previous price and current exceeds threshold 
+# units is in basis points
+# ex: 2 = .02%, 15 = .15%, 200 = 2%
+deviationThresholdBps: 200
+# priceIds to check/update
+priceIds: 
+  - "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6" # ETH/USD
+  - "0xf9c0172ba10dfa4d19088d94f5bf61d3b54d5bd7483a322a982e1373ee8ea31b" # BTC/USD
+  - "0xfe650f0367d4a7ef9815a593ea15d36593f0643aaaf0149bb04be67ab851decd" # SOL/USD
