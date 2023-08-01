@@ -2,15 +2,18 @@
 # Gelato Web3 functions <<-->> Pyth PoC
 Gelato Web3 Functions together with Pyth offer the ability to create fine-tuned customized oracles pushing prices on-chain following predefined logic within the Web3 Function and verifying prices on-chain through the Pyth network.
 
-In this repo we have two demos:
-1) [W3F to Pyth](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-w3f) that directly interact with the Pyth network. 
+We have three distinct demos in this repository, each demonstrating a different aspect:
 
-2) [W3F to Consumer Contract](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-consumer-contract) and a second one using a consumer contract.
+1. [W3F to Pyth](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-w3f): this demo directly interacts with the Pyth network.
+
+2. [W3F to Pyth Dynamic](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-w3f-priceIds): this is an enhanced version of W3F to Pyth that allows dynamic configuration via Github Gist.
+
+3. [W3F to Consumer Contract](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-consumer-contract): this demo uses a consumer contract as an intermediary.
 
    In both cases the logic is the same, the prices are going to be updated following:
 
    - Push a price on-chain every hour
-   - If since the last push, the price change is greater or equal to 2% in either direction, a new price will be pushed
+   - If the price changes by 2% or more in either direction since the last push, a new price will be pushed
 
 ## Funding
 We will fund Gelato and Pyth following this process:
