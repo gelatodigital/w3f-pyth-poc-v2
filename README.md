@@ -155,5 +155,13 @@ To create a task that runs your Web3 Function every minute, visit:
 > https://beta.app.gelato.network/new-task?cid=QmdrJyVznzHBrzb3zjwxPWU35rCRQmiPTk1LFejeqHHeMt
 ```
 
-
 You can find a template/instructions for W3F Pyth with dynamic configuration values loaded from a Github gist that allows you to update priceIds and various parameters without having to re-deploy the task in `web3-functions/pyth-oracle-w3f-priceIds`.
+
+### W3F command options
+
+- `--logs` Show internal Web3Function logs
+- `--runtime=thread|docker` Use thread if you don't have dockerset up locally (default: thread)
+- `--debug` Show Runtime debug messages
+- `--chain-id=number` Specify the chainId (default is Goerli: 5)
+
+Example: `npx w3f test web3-functions/pyth-oracle-w3f-priceIds/index.ts --logs --debug`
