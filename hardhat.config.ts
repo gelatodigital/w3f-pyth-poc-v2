@@ -14,6 +14,7 @@ dotenv.config({ path: __dirname + "/.env" });
 const PK = process.env.PK;
 const ALCHEMY_ID = process.env.ALCHEMY_ID;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
+const BLAST_API_KEY = process.env.BLAST_API_KEY;
 
 // HardhatUserConfig bug
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,6 +65,11 @@ const config: HardhatUserConfig = {
       accounts: PK ? [PK] : [],
       chainId: 137,
       url: "https://polygon-rpc.com",
+    },
+    baseGoerli: {
+      accounts: PK ? [PK] : [],
+      chainId: 84531,
+      url: `https://base-goerli.blastapi.io/${BLAST_API_KEY}`,
     },
   },
 
