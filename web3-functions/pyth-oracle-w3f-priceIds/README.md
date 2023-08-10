@@ -1,6 +1,6 @@
 # Gelato Web3 Pyth Functions with Dynamic Configuration
 
-This directory contains a template for running a web3 function that's an optimized version of [W3F to Pyth](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-w3f) where the staleness,price deviation and priceIds are dynamically configurable/loaded from a Github Gist and `updatePriceFeedsIfNecessary` is called instead of `updatePriceFeeds`.
+This directory contains a template for running a web3 function that's an optimized version of [W3F to Pyth](https://github.com/gelatodigital/w3f-pyth-poc-v2/tree/master/web3-functions/pyth-oracle-w3f) where the staleness, price deviation and priceIds are dynamically configurable/loaded from a Github Gist and `updatePriceFeedsIfNecessary` is called instead of `updatePriceFeeds`.
 
 ## Funding
 
