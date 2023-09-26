@@ -35,7 +35,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
   const priceIds = (userArgs.priceIds ?? "") as string[];
   // Get Pyth price data
   const connection = new EvmPriceServiceConnection(
-    "https://xc-testnet.pyth.network"
+    "https://hermes-beta.pyth.network"
   ); // See Price Service endpoints section below for other endpoints
 
   const check = (await connection.getLatestPriceFeeds(priceIds)) as any[];
