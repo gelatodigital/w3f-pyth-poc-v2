@@ -6,7 +6,7 @@ debug: true
 # Refresh rate of config in seconds to prevent rate limiting from github
 configRefreshRateInSeconds: 3600
 # See [https://docs.pyth.network/documentation/pythnet-price-feeds/price-service#public-endpoints]
-priceServiceEndpoint: "https://xc-testnet.pyth.network"
+priceServiceEndpoint: "https://hermes-beta.pyth.network"
 # maximum number of seconds between updates
 validTimePeriodSeconds: 86400
 # update price if diff between previous price and current exceeds threshold 

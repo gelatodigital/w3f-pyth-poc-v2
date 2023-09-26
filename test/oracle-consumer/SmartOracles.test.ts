@@ -45,7 +45,7 @@ describe("SmartOracle contract tests", function () {
   it("SmartOracle.updatePrice: onlyGelatoMsgSender", async () => {
     // Arbitrary bytes array
     const connection = new EvmPriceServiceConnection(
-      "https://xc-testnet.pyth.network"
+      "https://hermes-beta.pyth.network"
     );
 
     const priceIds = [
@@ -77,7 +77,7 @@ describe("SmartOracle contract tests", function () {
 
   it("SmartOracle.updatePrice: should update price correctly", async () => {
     const connection = new EvmPriceServiceConnection(
-      "https://xc-testnet.pyth.network"
+      "https://hermes-beta.pyth.network"
     );
 
     const priceIds = [
