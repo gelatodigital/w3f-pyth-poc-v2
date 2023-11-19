@@ -67,10 +67,9 @@ describe("W3F-Consumer tests", function () {
   });
 
   it("W3F returns canExec:true in first Execution", async () => {
-    const storage = {};
+   let storageBefore = {};
+    const  {result, storage, } = await oracleW3f.run({ userArgs, storage:storageBefore });
 
-    const w3fResultCall1 = await oracleW3f.run({ userArgs, storage });
-    const result = w3fResultCall1.result as Web3FunctionResultV2;
 
     expect(result.canExec).to.be.eq(true);
 

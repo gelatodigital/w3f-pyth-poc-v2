@@ -47,6 +47,7 @@ export interface SmartOracleInterface extends utils.Interface {
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
     "paused()": FunctionFragment;
+    "rawFulfillRandomWords(uint256,uint256[])": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "tokenIds()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
@@ -63,6 +64,7 @@ export interface SmartOracleInterface extends utils.Interface {
       | "owner"
       | "pause"
       | "paused"
+      | "rawFulfillRandomWords"
       | "renounceOwnership"
       | "tokenIds"
       | "transferOwnership"
@@ -83,6 +85,10 @@ export interface SmartOracleInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "rawFulfillRandomWords",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>[]]
+  ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
@@ -111,6 +117,10 @@ export interface SmartOracleInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "rawFulfillRandomWords",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
@@ -214,6 +224,12 @@ export interface SmartOracle extends BaseContract {
 
     paused(overrides?: CallOverrides): Promise<[boolean]>;
 
+    rawFulfillRandomWords(
+      requestId: PromiseOrValue<BigNumberish>,
+      randomWords: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -262,6 +278,12 @@ export interface SmartOracle extends BaseContract {
 
   paused(overrides?: CallOverrides): Promise<boolean>;
 
+  rawFulfillRandomWords(
+    requestId: PromiseOrValue<BigNumberish>,
+    randomWords: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   renounceOwnership(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -305,6 +327,12 @@ export interface SmartOracle extends BaseContract {
     pause(overrides?: CallOverrides): Promise<void>;
 
     paused(overrides?: CallOverrides): Promise<boolean>;
+
+    rawFulfillRandomWords(
+      requestId: PromiseOrValue<BigNumberish>,
+      randomWords: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
@@ -357,6 +385,12 @@ export interface SmartOracle extends BaseContract {
 
     paused(overrides?: CallOverrides): Promise<BigNumber>;
 
+    rawFulfillRandomWords(
+      requestId: PromiseOrValue<BigNumberish>,
+      randomWords: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -396,6 +430,12 @@ export interface SmartOracle extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    rawFulfillRandomWords(
+      requestId: PromiseOrValue<BigNumberish>,
+      randomWords: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }

@@ -23,7 +23,7 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: false,
-    networks: ["hardhat", "mumbai"], //(multiChainProvider) injects provider for these networks
+    networks: [ "mumbai"], //(multiChainProvider) injects provider for these networks
   },
   // hardhat-deploy
   namedAccounts: {
@@ -41,7 +41,7 @@ const config: HardhatUserConfig = {
       polygon: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
     },
   },
-  defaultNetwork: "hardhat",
+  defaultNetwork: "mumbai",
 
   networks: {
     hardhat: {

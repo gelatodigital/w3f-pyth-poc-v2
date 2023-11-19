@@ -7,8 +7,14 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
 import {IPyth} from "@pythnetwork/pyth-sdk-solidity/IPyth.sol";
 import {PythStructs} from "@pythnetwork/pyth-sdk-solidity/PythStructs.sol";
+import {
+    VRFCoordinatorV2Interface
+} from "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import {
+    VRFConsumerBaseV2
+} from "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
 
-contract SmartOracle is Ownable, Pausable {
+contract SmartOracle is VRFConsumerBaseV2, Ownable, Pausable {
     using Counters for Counters.Counter;
     struct Price {
         int64 price;
@@ -18,7 +24,7 @@ contract SmartOracle is Ownable, Pausable {
     Counters.Counter public tokenIds;
     address public immutable gelatoMsgSender;
     Price public currentPrice;
-
+    address vrfCoordinatorV2;
     modifier onlyGelatoMsgSender() {
         require(
             msg.sender == gelatoMsgSender,
@@ -27,9 +33,30 @@ contract SmartOracle is Ownable, Pausable {
         _;
     }
 
-    constructor(address _gelatoMsgSender, address pythContract) {
+    constructor(
+        address _gelatoMsgSender,
+        address pythContract,
+        address _vrfCoordinatorV2
+    ) VRFConsumerBaseV2(_vrfCoordinatorV2) {
         gelatoMsgSender = _gelatoMsgSender;
         _pyth = IPyth(pythContract);
+        vrfCoordinatorV2 = _vrfCoordinatorV2;
+    }
+
+    function fulfillRandomWords(
+        uint256 requestId,
+        uint256[] memory randomWords
+    ) internal override {}
+
+    function _requestRandomness() internal returns (uint256 requestId) {
+        requestId = VRFCoordinatorV2Interface(vrfCoordinatorV2)
+            .requestRandomWords(
+                0x8af398995b04c28e9951adb9721ef74c74f93e6a478f39e7e0777be13527e7ef,
+                734,
+                100,
+                100_000,
+                1
+            );
     }
 
     /* solhint-disable-next-line no-empty-blocks */
