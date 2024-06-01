@@ -18,7 +18,7 @@ We have three distinct demos in this repository, each demonstrating a different 
 ## Funding
 We will fund Gelato and Pyth following this process:
 1) Gelato:
-  The gelato fees are payed with [1Balance](https://docs.gelato.network/developer-services/1balance). 
+  The gelato fees are paid with [1Balance](https://docs.gelato.network/developer-services/1balance). 
   1Balance allows to deposit USDC on polygon and run the transactions on every network.
 
    To fund 1Balance please visit the [1balance app](https://beta.app.gelato.network/balance) and deposit USDC.
