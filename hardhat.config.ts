@@ -6,6 +6,7 @@ import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
 import "hardhat-deploy";
+import "@nomiclabs/hardhat-etherscan";
 
 // Process Env Variables
 import * as dotenv from "dotenv";
@@ -23,7 +24,7 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: false,
-    networks: [ "mumbai"], //(multiChainProvider) injects provider for these networks
+    networks: ["polygon"], //(multiChainProvider) injects provider for these networks
   },
   // hardhat-deploy
   namedAccounts: {
@@ -31,23 +32,26 @@ const config: HardhatUserConfig = {
       default: 0,
     },
     gelatoMsgSender: {
-      hardhat: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
-      mumbai: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
+      hardhat: "0xbB97656cd5fECe3a643335d03C8919D5E7DcD225",
+      base: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
       polygon: "0xcc53666e25BF52C7c5Bc1e8F6E1F6bf58E871659",
+      blastSepolia:"0xbB97656cd5fECe3a643335d03C8919D5E7DcD225"
     },
     pyth: {
-      hardhat: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
-      mumbai: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
+      hardhat: "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
+      base: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
       polygon: "0xff1a0f4744e8582DF1aE09D5611b887B6a12925C",
+      blastSepolia:"0xA2aa501b19aff244D90cc15a4Cf739D2725B5729"
     },
   },
-  defaultNetwork: "mumbai",
+  defaultNetwork: "hardhat",
 
   networks: {
     hardhat: {
       forking: {
-        url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_ID}`,
-        blockNumber: 35241432,
+        url: `https://base-mainnet.g.alchemy.com/v2/${BLAST_API_KEY}`,
+
+       // blockNumber: 35241432,
       },
     },
 
@@ -56,21 +60,21 @@ const config: HardhatUserConfig = {
       chainId: 1,
       url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_ID}`,
     },
-    mumbai: {
-      accounts: PK ? [PK] : [],
-      chainId: 80001,
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_ID}`,
-    },
     polygon: {
       accounts: PK ? [PK] : [],
       chainId: 137,
       url: "https://polygon-rpc.com",
     },
-    baseGoerli: {
+    base: {
       accounts: PK ? [PK] : [],
-      chainId: 84531,
-      url: `https://base-goerli.blastapi.io/${BLAST_API_KEY}`,
+      chainId: 8453,
+      url: `https://base-mainnet.g.alchemy.com/v2/${BLAST_API_KEY}`,
     },
+    blastSepolia :{
+      accounts: PK ? [PK] : [],
+      chainId: 168587773,
+      url: `https://sepolia.blast.io`,
+    }
   },
 
   solidity: {
@@ -90,11 +94,26 @@ const config: HardhatUserConfig = {
   },
 
   // hardhat-deploy
-  verify: {
-    etherscan: {
-      apiKey: ETHERSCAN_API_KEY ? ETHERSCAN_API_KEY : "",
+  etherscan: {
+    apiKey: {
+      blastSepolia: "blast_sepolia", // apiKey is not required, just set a placeholder
     },
+    customChains: [
+      {
+        network: "blastSepolia",
+        chainId: 168587773,
+        urls: {
+          apiURL: "https://api.routescan.io/v2/network/testnet/evm/168587773/etherscan",
+          browserURL: "https://testnet.blastscan.io"
+        }
+      }
+    ]
   },
+  // verify: {
+  //   etherscan: {
+  //     apiKey: ETHERSCAN_API_KEY ? ETHERSCAN_API_KEY : "",
+  //   },
+  // },
 };
 
 export default config;

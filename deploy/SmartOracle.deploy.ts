@@ -18,7 +18,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
 
   await deploy("SmartOracle", {
     from: deployer,
-    args: [gelatoMsgSender, pyth,"0x7a1bac17ccc5b313516c5e16fb24f7659aa5ebed"],
+    args: [gelatoMsgSender, pyth],
     log: true,
   });
 };

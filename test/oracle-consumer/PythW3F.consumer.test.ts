@@ -12,7 +12,7 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 const { ethers, deployments, w3f } = hre;
 
-describe("W3F-Consumer tests", function () {
+describe.only("W3F-Consumer tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let smartOracle: SmartOracle;
@@ -38,28 +38,27 @@ describe("W3F-Consumer tests", function () {
     await setBalance(gelatoMsgSender, utils.parseEther("10000000000000"));
 
     const smartOracleAddress = (await deployments.get("SmartOracle")).address;
+    console.log(smartOracleAddress)
 
     smartOracle = (await ethers.getContractAt(
       "SmartOracle",
       smartOracleAddress
     )) as SmartOracle;
 
-    const p = await  admin.populateTransaction({
+    await  admin.populateTransaction({
       to: smartOracle.address,
       value: 5000,
-      gasLimit: 10000000,
     }) 
 
     await admin.sendTransaction({
       to: smartOracle.address,
       value: 5000,
-      gasLimit: 10000000,
     });
 
     userArgs = {
       SmartOracle: smartOracleAddress, // set your oracle address
       priceIds: [
-        "0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6",
+        "0xc96458d393fe9deb7a7d63a0ac41e2898a67a7750dbd166673279e06c868df0a",
       ], // set your price ids
     };
 
