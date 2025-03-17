@@ -13,7 +13,7 @@ import {
 import { pythAbi } from "../../web3-functions/pyth-oracle-w3f/pythAbi";
 const { ethers, deployments, w3f } = hre;
 
-describe.only("W3F-Pyth tests", function () {
+describe("W3F-Pyth tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let pythNetwork: IPyth;

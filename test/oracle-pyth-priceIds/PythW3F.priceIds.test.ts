@@ -15,7 +15,7 @@ import { PythConfig } from "../../web3-functions/pyth-oracle-w3f-priceIds/pythUt
 import { Price } from "@pythnetwork/pyth-evm-js";
 const { ethers, deployments, w3f } = hre;
 
-describe.only("W3F-Pyth-PriceIds tests", function () {
+describe("W3F-Pyth-PriceIds tests", function () {
   let admin: Signer; // proxyAdmin
   let adminAddress: string;
   let pythContract: IPyth;

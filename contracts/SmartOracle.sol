@@ -8,6 +8,7 @@ import {Pausable} from "@openzeppelin/contracts/security/Pausable.sol";
 import {IPyth} from "@pythnetwork/pyth-sdk-solidity/IPyth.sol";
 import {PythStructs} from "@pythnetwork/pyth-sdk-solidity/PythStructs.sol";
 
+
 contract SmartOracle is Ownable, Pausable {
     using Counters for Counters.Counter;
     struct Price {
@@ -18,7 +19,6 @@ contract SmartOracle is Ownable, Pausable {
     Counters.Counter public tokenIds;
     address public immutable gelatoMsgSender;
     Price public currentPrice;
-
     modifier onlyGelatoMsgSender() {
         require(
             msg.sender == gelatoMsgSender,
@@ -27,10 +27,14 @@ contract SmartOracle is Ownable, Pausable {
         _;
     }
 
-    constructor(address _gelatoMsgSender, address pythContract) {
+    constructor(
+        address _gelatoMsgSender,
+        address pythContract
+    ) {
         gelatoMsgSender = _gelatoMsgSender;
         _pyth = IPyth(pythContract);
     }
+
 
     /* solhint-disable-next-line no-empty-blocks */
     receive() external payable {}
@@ -42,7 +46,7 @@ contract SmartOracle is Ownable, Pausable {
         _pyth.updatePriceFeeds{value: fee}(updatePriceData);
         /* solhint-disable-next-line */
         bytes32 priceID = bytes32(
-            0xca80ba6dc32e08d06f1aa886011eed1d77c77be9eb761cc10d72b7d0a2fd57a6
+            0xc96458d393fe9deb7a7d63a0ac41e2898a67a7750dbd166673279e06c868df0a
         );
 
         PythStructs.Price memory checkPrice = _pyth.getPriceUnsafe(priceID);

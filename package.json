@@ -15,8 +15,8 @@
     "lint:ts": "eslint -c .eslintrc.json --ext \"**/*.ts\" \"**/*.test.ts\"",
     "lint:sol": "solhint 'contracts/**/*.sol'",
     "postinstall": "yarn husky install",
-    "w3f:deploy": "npx w3f deploy web3-functions/pyth-oracle-w3f/index.ts",
-    "w3f:test": "npx w3f test web3-functions/pyth-oracle-w3f/index.ts --logs"
+    "w3f:deploy": "npx w3f deploy web3-functions/pyth-oracle-consumer-contract/index.ts",
+    "w3f:test": "npx w3f test web3-functions/pyth-oracle-w3f-priceids/index.ts --logs --chain-id=8543"
   },
   "license": "ISC",
   "devDependencies": {
@@ -61,6 +61,8 @@
     "*.*{ts,js}": "eslint -c .eslintrc.json"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.7.1",
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
     "@openzeppelin/contracts": "^4.9.0",
     "@pythnetwork/pyth-evm-js": "^1.16.1",
     "@pythnetwork/pyth-sdk-solidity": "^2.2.1",
